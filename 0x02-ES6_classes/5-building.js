@@ -2,13 +2,15 @@
 export default class Building {
   /* eslint-disable no-underscore-dangle */
   constructor(sqft) {
+    if (this.constructor !== Building) {
+      if (typeof this.evacuationWarningMessage !== 'function') {
+        throw new Error('Class extending Building must override evacuationWarningMessage');
+      }
+    }
     if (typeof sqft === 'number') {
       this._sqft = sqft;
     } else {
       throw new TypeError('Sqft must be a number');
-    }
-    if (typeof this.evacuationWarningMessage !== 'function') {
-      throw new Error('Class extending Building must override evacuationWarningMessage');
     }
   }
 
@@ -22,9 +24,5 @@ export default class Building {
     } else {
       throw new TypeError('Sqft must be a number');
     }
-  }
-
-  evacuationWarningMessage() {
-    throw new Error('Class extending Building must override evacuationWarningMessage');
   }
 }
